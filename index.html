@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>The Wedding of Risco &amp; Putri</title>
+  <meta name="description" content="Tanpa mengurangi rasa hormat, kami mengundang Anda untuk hadir di acara pernikahan Risco &amp; Putri.">
+  <meta property="og:title" content="The Wedding of Risco &amp; Putri">
+  <meta property="og:description" content="Kepada Yth. Tamu Undangan — 18 January 2027">
+  <meta name="theme-color" content="#c8102e">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lato&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Amiri&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/invitation.css">
+
+  <style>
+    :root {
+      --primary: #c8102e;
+      --secondary: #111111;
+      --bg: #1a0d0d;
+      --surface: #2a1414;
+      --text: #f7e7c6;
+      --accent: #f2c14e;
+      --on-primary: #ffffff;
+      --radius: 14px;
+      --overlay: 0.45;
+      --f-heading: 'Cinzel Decorative';
+      --f-script: 'Great Vibes';
+      --f-body: 'Lato';
+      --pat: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2760%27%20height%3D%2760%27%20viewBox%3D%270%200%2060%2060%27%3E%3Cg%20opacity%3D%270.1%27%3E%3Cpath%20d%3D%27M0%2060%20L15%2030%20L30%2060Z%20M30%2060%20L45%2030%20L60%2060Z%27%20fill%3D%27%23f2c14e%27%2F%3E%3Cpath%20d%3D%27M15%2030v30M45%2030v30M8%2045h14M38%2045h14%27%20stroke%3D%27%23c8102e%27%20stroke-width%3D%271.5%27%2F%3E%3Cpath%20d%3D%27M30%204l9%209-9%209-9-9z%27%20fill%3D%27%23c8102e%27%2F%3E%3Cpath%20d%3D%27M30%209l4%204-4%204-4-4z%27%20fill%3D%27%23f2c14e%27%2F%3E%3Cpath%20d%3D%27M0%2026h60%27%20stroke%3D%27%23f2c14e%27%20stroke-width%3D%271.5%27%20stroke-dasharray%3D%273%203%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+      --band: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2760%27%20height%3D%2760%27%20viewBox%3D%270%200%2060%2060%27%3E%3Cg%20opacity%3D%270.95%27%3E%3Cpath%20d%3D%27M0%2060%20L15%2030%20L30%2060Z%20M30%2060%20L45%2030%20L60%2060Z%27%20fill%3D%27%23f2c14e%27%2F%3E%3Cpath%20d%3D%27M15%2030v30M45%2030v30M8%2045h14M38%2045h14%27%20stroke%3D%27%23c8102e%27%20stroke-width%3D%271.5%27%2F%3E%3Cpath%20d%3D%27M30%204l9%209-9%209-9-9z%27%20fill%3D%27%23c8102e%27%2F%3E%3Cpath%20d%3D%27M30%209l4%204-4%204-4-4z%27%20fill%3D%27%23f2c14e%27%2F%3E%3Cpath%20d%3D%27M0%2026h60%27%20stroke%3D%27%23f2c14e%27%20stroke-width%3D%271.5%27%20stroke-dasharray%3D%273%203%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+    }
+  </style>
+</head>
+<body class="locked nav-pill has-pat ornament-gonjong anim-fade-up dark tilt-on">
+
+  <!-- Efek Partikel 3D -->
+  <canvas id="fx3d"></canvas>
+
+  <!-- Musik Latar MP3 -->
+  <audio id="bgm" loop preload="metadata" src="assets/music.mp3"></audio>
+
+  <!-- Sampul 3D Room -->
+  <div id="cover" class="cover cover-room no-photo">
+    <canvas id="room3d"></canvas>
+    <div class="cover-bg"></div>
+    <div class="cover-ring"></div>
+    <div class="cover-ring r2"></div>
+    <div class="door l"><span class="knob"></span></div>
+    <div class="door r"><span class="knob"></span></div>
+    <div class="cover-inner">
+      <div class="cover-sub">The Wedding of</div>
+      <h1 class="cover-names script">Risco &amp; Putri</h1>
+      <div class="cover-date">18 January 2027</div>
+      <div class="cover-guest">
+        <small>Kepada Yth. Bapak/Ibu/Saudara/i</small>
+        <b data-guest-name>Tamu Undangan</b>
+      </div>
+      <button class="btn-open" id="btnOpen" type="button">✉️ Buka Undangan</button>
+    </div>
+  </div>
+
+  <!-- Layout Utama (Desktop 2 Kolom / Mobile 1 Kolom) -->
+  <div class="layout">
+    <div class="desk-bg" aria-hidden="true"></div>
+
+    <aside class="aside no-photo">
+      <div class="aside-in">
+        <svg class="orn-crown" viewBox="0 0 300 120" aria-hidden="true">
+          <g fill="currentColor"><path d="M20 110 C40 100 30 40 10 20 C50 40 70 70 90 80 C110 60 120 30 150 10 C180 30 190 60 210 80 C230 70 250 40 290 20 C270 40 260 100 280 110Z" opacity=".9"/></g>
+          <g fill="none" stroke="var(--accent)" stroke-width="3"><path d="M60 110v-24h180v24"/><path d="M80 98h140"/></g>
+          <g fill="var(--accent)"><circle cx="10" cy="20" r="4"/><circle cx="150" cy="10" r="4"/><circle cx="290" cy="20" r="4"/></g>
+        </svg>
+        <div class="aside-frame"><span>R &amp; P</span></div>
+        <div class="aside-sub">The Wedding of</div>
+        <h2 class="aside-names script">Risco &amp; Putri</h2>
+        <div class="aside-date">18 January 2027</div>
+        <div class="aside-cd">
+          <div><b data-cd="d">00</b><span>Hari</span></div>
+          <div><b data-cd="h">00</b><span>Jam</span></div>
+          <div><b data-cd="m">00</b><span>Menit</span></div>
+          <div><b data-cd="s">00</b><span>Detik</span></div>
+        </div>
+        <div class="aside-guest">
+          Kepada Yth. Bapak/Ibu/Saudara/i
+          <b data-guest-name>Tamu Undangan</b>
+        </div>
+        <div class="aside-hint">Gulir undangan di samping <span>→</span></div>
+      </div>
+    </aside>
+
+    <main class="inv" id="inv">
+      <!-- 1. Hero -->
+      <section class="sec sec-hero" id="s-hero">
+        <svg class="orn-crown" viewBox="0 0 300 120" aria-hidden="true">
+          <g fill="currentColor"><path d="M20 110 C40 100 30 40 10 20 C50 40 70 70 90 80 C110 60 120 30 150 10 C180 30 190 60 210 80 C230 70 250 40 290 20 C270 40 260 100 280 110Z" opacity=".9"/></g>
+          <g fill="none" stroke="var(--accent)" stroke-width="3"><path d="M60 110v-24h180v24"/><path d="M80 98h140"/></g>
+          <g fill="var(--accent)"><circle cx="10" cy="20" r="4"/><circle cx="150" cy="10" r="4"/><circle cx="290" cy="20" r="4"/></g>
+        </svg>
+        <p class="heading rv" style="font-size:.95rem">Assalamu'alaikum Warahmatullahi Wabarakatuh</p>
+        <div class="hero-frame rv card3d">
+          <div class="ph">R &amp; P</div>
+        </div>
+        <div class="sec-sub rv">The Wedding of</div>
+        <h2 class="hero-names script rv">Risco &amp; Putri</h2>
+        <svg class="divider rv" viewBox="0 0 120 14">
+          <path d="M0 7h48M72 7h48" stroke="currentColor"/>
+          <path d="M60 1l6 6-6 6-6-6z" fill="currentColor"/>
+        </svg>
+        <p class="rv" style="font-size:.92rem">Dengan memohon rahmat dan ridho Allah SWT, kami bermaksud menyelenggarakan pernikahan putra-putri kami.</p>
+      </section>
+
+      <div class="band" aria-hidden="true"></div>
+
+      <!-- 2. Quote -->
+      <section class="sec sec-quote" id="s-quote">
+        <svg class="orn-crown" viewBox="0 0 300 120" aria-hidden="true">
+          <g fill="currentColor"><path d="M20 110 C40 100 30 40 10 20 C50 40 70 70 90 80 C110 60 120 30 150 10 C180 30 190 60 210 80 C230 70 250 40 290 20 C270 40 260 100 280 110Z" opacity=".9"/></g>
+          <g fill="none" stroke="var(--accent)" stroke-width="3"><path d="M60 110v-24h180v24"/><path d="M80 98h140"/></g>
+          <g fill="var(--accent)"><circle cx="10" cy="20" r="4"/><circle cx="150" cy="10" r="4"/><circle cx="290" cy="20" r="4"/></g>
+        </svg>
+        <div class="card3d rv">
+          <p class="arabic">وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً</p>
+          <p class="quote-text">"Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu pasangan hidup dari jenismu sendiri, supaya kamu merasa tenteram kepadanya, dan dijadikan-Nya di antaramu rasa kasih dan sayang."</p>
+          <p class="quote-src">— QS. Ar-Rum: 21</p>
+        </div>
+      </section>
+
+      <div class="band" aria-hidden="true"></div>
+
+      <!-- 3. Mempelai -->
+      <section class="sec sec-people" id="s-people">
+        <svg class="orn-crown" viewBox="0 0 300 120" aria-hidden="true">
+          <g fill="currentColor"><path d="M20 110 C40 100 30 40 10 20 C50 40 70 70 90 80 C110 60 120 30 150 10 C180 30 190 60 210 80 C230 70 250 40 290 20 C270 40 260 100 280 110Z" opacity=".9"/></g>
+          <g fill="none" stroke="var(--accent)" stroke-width="3"><path d="M60 110v-24h180v24"/><path d="M80 98h140"/></g>
+          <g fill="var(--accent)"><circle cx="10" cy="20" r="4"/><circle cx="150" cy="10" r="4"/><circle cx="290" cy="20" r="4"/></g>
+        </svg>
+        <div class="sec-title rv">Mempelai</div>
+        <p class="rv" style="font-size:.88rem;margin-bottom:2rem">Maha Suci Allah yang telah menciptakan makhluk-Nya berpasang-pasangan.</p>
+
+        <div class="person rv">
+          <div class="person-photo"><div><div class="ph">R</div></div></div>
+          <div class="person-label">Mempelai Pria</div>
+          <div class="person-nick script">Risco</div>
+          <div class="person-full">Risco Ramadhan, S.Kom.</div>
+          <div class="person-parents">Putra pertama dari Bapak H. Ahmad &amp; Ibu Hj. Aminah</div>
+        </div>
+
+        <div class="amp script rv">&amp;</div>
+
+        <div class="person rv">
+          <div class="person-photo"><div><div class="ph">P</div></div></div>
+          <div class="person-label">Mempelai Wanita</div>
+          <div class="person-nick script">Putri</div>
+          <div class="person-full">Putri Rahmawati, S.Pd.</div>
+          <div class="person-parents">Putri kedua dari Bapak H. Hendra &amp; Ibu Hj. Dewi</div>
+        </div>
+      </section>
+
+      <div class="band" aria-hidden="true"></div>
+
+      <!-- 4. Countdown -->
+      <section class="sec sec-countdown" id="s-countdown">
+        <svg class="orn-crown" viewBox="0 0 300 120" aria-hidden="true">
+          <g fill="currentColor"><path d="M20 110 C40 100 30 40 10 20 C50 40 70 70 90 80 C110 60 120 30 150 10 C180 30 190 60 210 80 C230 70 250 40 290 20 C270 40 260 100 280 110Z" opacity=".9"/></g>
+          <g fill="none" stroke="var(--accent)" stroke-width="3"><path d="M60 110v-24h180v24"/><path d="M80 98h140"/></g>
+          <g fill="var(--accent)"><circle cx="10" cy="20" r="4"/><circle cx="150" cy="10" r="4"/><circle cx="290" cy="20" r="4"/></g>
+        </svg>
+        <div class="sec-title rv">Menuju Hari Bahagia</div>
+        <div class="sec-sub rv">Monday, 18 January 2027</div>
+        <div class="cd rv" id="cd">
+          <div><b data-cd="d">00</b><span>Hari</span></div>
+          <div><b data-cd="h">00</b><span>Jam</span></div>
+          <div><b data-cd="m">00</b><span>Menit</span></div>
+          <div><b data-cd="s">00</b><span>Detik</span></div>
+        </div>
+        <a class="btn-i outline sm rv" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=The%20Wedding%20of%20Risco%20%26%20Putri&amp;dates=20270118T010000Z/20270118T040000Z&amp;location=Masjid%20Raya%20Sumatera%20Barat%2C%20Padang" target="_blank" rel="noopener">📅 Simpan ke Kalender</a>
+      </section>
+
+      <div class="band" aria-hidden="true"></div>
+
+      <!-- 5. Waktu & Tempat -->
+      <section class="sec sec-events" id="s-events">
+        <svg class="orn-crown" viewBox="0 0 300 120" aria-hidden="true">
+          <g fill="currentColor"><path d="M20 110 C40 100 30 40 10 20 C50 40 70 70 90 80 C110 60 120 30 150 10 C180 30 190 60 210 80 C230 70 250 40 290 20 C270 40 260 100 280 110Z" opacity=".9"/></g>
+          <g fill="none" stroke="var(--accent)" stroke-width="3"><path d="M60 110v-24h180v24"/><path d="M80 98h140"/></g>
+          <g fill="var(--accent)"><circle cx="10" cy="20" r="4"/><circle cx="150" cy="10" r="4"/><circle cx="290" cy="20" r="4"/></g>
+        </svg>
+        <div class="sec-title rv">Waktu &amp; Tempat</div>
+        <div class="sec-sub rv">Insya Allah akan diselenggarakan pada</div>
+
+        <div class="card3d event rv">
+          <h3>Akad Nikah</h3>
+          <div class="date">Monday, 18 January 2027</div>
+          <div class="meta">🕘 08:00 – 10:00 WIB</div>
+          <div class="venue">📍 Masjid Raya Sumatera Barat</div>
+          <div class="addr">Jl. Khatib Sulaiman, Padang Utara, Kota Padang</div>
+          <div class="acts">
+            <a class="btn-i sm" href="https://maps.google.com/?q=Masjid+Raya+Sumatera+Barat+Padang" target="_blank" rel="noopener">🗺️ Lihat Lokasi</a>
+          </div>
+        </div>
+
+        <div class="card3d event rv">
+          <h3>Resepsi</h3>
+          <div class="date">Monday, 18 January 2027</div>
+          <div class="meta">🕘 11:00 – 14:00 WIB</div>
+          <div class="venue">📍 Gedung Serbaguna Minangkabau</div>
+          <div class="addr">Jl. Sudirman No. 18, Kota Padang</div>
+          <div class="acts">
+            <a class="btn-i sm" href="https://maps.google.com/?q=Padang+Sumatera+Barat" target="_blank" rel="noopener">🗺️ Lihat Lokasi</a>
+          </div>
+        </div>
+      </section>
+
+      <div class="band" aria-hidden="true"></div>
+
+      <!-- 6. Kisah Kami -->
+      <section class="sec sec-story" id="s-story">
+        <svg class="orn-crown" viewBox="0 0 300 120" aria-hidden="true">
+          <g fill="currentColor"><path d="M20 110 C40 100 30 40 10 20 C50 40 70 70 90 80 C110 60 120 30 150 10 C180 30 190 60 210 80 C230 70 250 40 290 20 C270 40 260 100 280 110Z" opacity=".9"/></g>
+          <g fill="none" stroke="var(--accent)" stroke-width="3"><path d="M60 110v-24h180v24"/><path d="M80 98h140"/></g>
+          <g fill="var(--accent)"><circle cx="10" cy="20" r="4"/><circle cx="150" cy="10" r="4"/><circle cx="290" cy="20" r="4"/></g>
+        </svg>
+        <div class="sec-title rv">Kisah Kami</div>
+        <div class="timeline">
+          <div class="tl-item rv">
+            <div class="yr">2022</div>
+            <h4>Pertama Bertemu</h4>
+            <p>Kami dipertemukan dalam sebuah pertemuan di lingkungan kampus dan saling mengenal dengan baik.</p>
+          </div>
+          <div class="tl-item rv">
+            <div class="yr">2025</div>
+            <h4>Khitbah</h4>
+            <p>Dengan restu kedua orang tua, kami melangsungkan lamaran sebagai langkah awal menuju ibadah terpanjang.</p>
+          </div>
+          <div class="tl-item rv">
+            <div class="yr">2027</div>
+            <h4>Menikah</h4>
+            <p>Insya Allah kami melangkah ke jenjang pernikahan dan memulai lembaran baru bersama.</p>
+          </div>
+        </div>
+      </section>
+
+      <div class="band" aria-hidden="true"></div>
+
+      <!-- 7. Amplop Digital -->
+      <section class="sec sec-gift" id="s-gift">
+        <svg class="orn-crown" viewBox="0 0 300 120" aria-hidden="true">
+          <g fill="currentColor"><path d="M20 110 C40 100 30 40 10 20 C50 40 70 70 90 80 C110 60 120 30 150 10 C180 30 190 60 210 80 C230 70 250 40 290 20 C270 40 260 100 280 110Z" opacity=".9"/></g>
+          <g fill="none" stroke="var(--accent)" stroke-width="3"><path d="M60 110v-24h180v24"/><path d="M80 98h140"/></g>
+          <g fill="var(--accent)"><circle cx="10" cy="20" r="4"/><circle cx="150" cy="10" r="4"/><circle cx="290" cy="20" r="4"/></g>
+        </svg>
+        <div class="sec-title rv">Amplop Digital</div>
+        <p class="rv" style="font-size:.88rem;margin-bottom:1.5rem">Doa restu Anda merupakan karunia yang sangat berarti. Namun jika memberi adalah ungkapan tanda kasih, Anda dapat memberi kado secara cashless.</p>
+        <div class="card3d acc rv">
+          <span class="chip"></span>
+          <div>
+            <div class="bank">BSI</div>
+            <div class="num">1234567890</div>
+            <div style="font-size:.82rem;opacity:.9">a.n. Risco Ramadhan</div>
+            <button class="btn-i sm" type="button" data-copy="1234567890">📋 Salin</button>
+          </div>
+        </div>
+      </section>
+
+      <div class="band" aria-hidden="true"></div>
+
+      <!-- 8. Ucapan & RSVP -->
+      <section class="sec sec-rsvp" id="s-rsvp">
+        <svg class="orn-crown" viewBox="0 0 300 120" aria-hidden="true">
+          <g fill="currentColor"><path d="M20 110 C40 100 30 40 10 20 C50 40 70 70 90 80 C110 60 120 30 150 10 C180 30 190 60 210 80 C230 70 250 40 290 20 C270 40 260 100 280 110Z" opacity=".9"/></g>
+          <g fill="none" stroke="var(--accent)" stroke-width="3"><path d="M60 110v-24h180v24"/><path d="M80 98h140"/></g>
+          <g fill="var(--accent)"><circle cx="10" cy="20" r="4"/><circle cx="150" cy="10" r="4"/><circle cx="290" cy="20" r="4"/></g>
+        </svg>
+        <div class="sec-title rv">Ucapan &amp; Doa</div>
+        <p class="rv" style="font-size:.88rem;margin-bottom:1.4rem">Kirimkan doa dan ucapan terbaik Anda, serta konfirmasi kehadiran.</p>
+
+        <form class="card3d form-i rv" id="wishForm">
+          <label for="wishName">Nama</label>
+          <input id="wishName" name="name" required maxlength="100" value="Tamu Undangan" placeholder="Nama Anda">
+
+          <label>Konfirmasi kehadiran</label>
+          <div class="att">
+            <input type="radio" name="attendance" value="hadir" id="a1" checked><label for="a1">Hadir</label>
+            <input type="radio" name="attendance" value="ragu" id="a2"><label for="a2">Ragu</label>
+            <input type="radio" name="attendance" value="tidak" id="a3"><label for="a3">Tidak</label>
+          </div>
+
+          <label for="wishPax">Jumlah yang hadir</label>
+          <select id="wishPax" name="pax">
+            <option value="1">1 orang</option>
+            <option value="2">2 orang</option>
+          </select>
+
+          <label for="wishMsg">Ucapan &amp; doa</label>
+          <textarea id="wishMsg" name="message" rows="4" required maxlength="1000" placeholder="Tulis ucapan terbaik Anda..."></textarea>
+
+          <button class="btn-i" style="width:100%;margin-top:1rem" type="submit">💌 Kirim Ucapan</button>
+        </form>
+
+        <div class="wish-stats rv">
+          <span>💬 <b id="wishCount">3</b> ucapan</span>
+        </div>
+        <div class="wishes" id="wishes"></div>
+      </section>
+
+      <div class="band" aria-hidden="true"></div>
+
+      <!-- 9. Penutup -->
+      <section class="sec sec-closing" id="s-closing">
+        <svg class="orn-crown" viewBox="0 0 300 120" aria-hidden="true">
+          <g fill="currentColor"><path d="M20 110 C40 100 30 40 10 20 C50 40 70 70 90 80 C110 60 120 30 150 10 C180 30 190 60 210 80 C230 70 250 40 290 20 C270 40 260 100 280 110Z" opacity=".9"/></g>
+          <g fill="none" stroke="var(--accent)" stroke-width="3"><path d="M60 110v-24h180v24"/><path d="M80 98h140"/></g>
+          <g fill="var(--accent)"><circle cx="10" cy="20" r="4"/><circle cx="150" cy="10" r="4"/><circle cx="290" cy="20" r="4"/></g>
+        </svg>
+        <p class="rv" style="font-size:.92rem">Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu.</p>
+        <p class="heading rv" style="margin-top:1rem;font-size:.95rem">Wassalamu'alaikum Warahmatullahi Wabarakatuh</p>
+        <p class="rv" style="margin-top:1.5rem;font-size:.85rem">Kami yang berbahagia</p>
+        <div class="script rv">Risco &amp; Putri</div>
+      </section>
+
+      <footer class="credit">
+        <div class="credit-card">
+          <span class="credit-ico">💌</span>
+          <span class="credit-txt">
+            <small>Undangan Pernikahan</small>
+            <b>Risco &amp; Putri</b>
+            <em>18 January 2027</em>
+          </span>
+        </div>
+      </footer>
+      <div class="site-bar-space"></div>
+    </main>
+  </div>
+
+  <!-- Tombol Musik Mengambang -->
+  <button class="music has" id="btnMusic" type="button" aria-label="Musik" title="Putar / Jeda Musik">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M9 18V5l11-2v13"/>
+      <circle cx="6" cy="18" r="3"/>
+      <circle cx="17" cy="16" r="3"/>
+    </svg>
+  </button>
+
+  <!-- Navigasi Bawah -->
+  <nav class="bnav" id="bnav" aria-label="Navigasi Undangan">
+    <a href="#s-hero" data-sec="hero" title="Pembuka" aria-label="Pembuka">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>
+    </a>
+    <a href="#s-people" data-sec="people" title="Mempelai" aria-label="Mempelai">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>
+    </a>
+    <a href="#s-events" data-sec="events" title="Detail Acara" aria-label="Detail Acara">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+    </a>
+    <a href="#s-story" data-sec="story" title="Kisah Kami" aria-label="Kisah Kami">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 21V5M9 7h6"/></svg>
+    </a>
+    <a href="#s-gift" data-sec="gift" title="Amplop Digital" aria-label="Amplop Digital">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="9" width="18" height="12" rx="1"/><path d="M3 13h18M12 9v12M12 9c-2-4-7-4-6-1 1 2 6 1 6 1zm0 0c2-4 7-4 6-1-1 2-6 1-6 1z"/></svg>
+    </a>
+    <a href="#s-rsvp" data-sec="rsvp" title="RSVP &amp; Ucapan" aria-label="RSVP &amp; Ucapan">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+    </a>
+  </nav>
+
+  <div class="lightbox" id="lb">
+    <button class="lb-x" type="button" data-lb="x">✕</button>
+    <button class="lb-p" type="button" data-lb="p">‹</button>
+    <img alt="">
+    <button class="lb-n" type="button" data-lb="n">›</button>
+  </div>
+  <div class="toast-i" id="toastI"></div>
+
+  <script>
+    window.INV = {
+      effect: "sparkle",
+      density: 60,
+      effectColor: "#f2c14e",
+      primary: "#c8102e",
+      accent: "#f2c14e",
+      dark: true,
+      tilt: true,
+      autoplay: true,
+      opened: false,
+      coverStyle: "room",
+      countdown: "2027-01-18 08:00"
+    };
+  </script>
+  <script src="js/invitation.js" defer></script>
+  <script type="module" src="js/fx3d.js"></script>
+  <script type="module" src="js/room3d.js"></script>
+</body>
+</html>
